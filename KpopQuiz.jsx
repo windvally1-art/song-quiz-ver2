@@ -581,6 +581,9 @@ function AppleAttribution({ trackViewUrl }) {
 
 // ─── Artist Card ──────────────────────────────────────────────────────────────
 function ArtistCard({ artist, imageUrl, onClick }) {
+  const [imgFailed, setImgFailed] = useState(false);
+  useEffect(() => { setImgFailed(false); }, [imageUrl]);
+
   return (
     <div
       className="artist-card"
@@ -590,9 +593,9 @@ function ArtistCard({ artist, imageUrl, onClick }) {
       tabIndex={0}
       onKeyDown={(e) => e.key === 'Enter' && onClick()}
     >
-      {imageUrl ? (
+      {imageUrl && !imgFailed ? (
         <img src={imageUrl} alt={artist.ko} loading="lazy"
-          onError={(e) => { e.target.style.display = 'none'; }} />
+          onError={() => setImgFailed(true)} />
       ) : (
         <div className="img-placeholder">🎵</div>
       )}
@@ -634,8 +637,9 @@ function ArtistScreen({ artistImages, onSelectArtist }) {
 // ─── Screen 2: Listening Phase ────────────────────────────────────────────────
 function ListeningScreen({ artist, trackInfo, songData, noPreview, loading, error, onQuiz, onBack }) {
   const audioRef = useRef(null);
-  const [isPlaying, setIsPlaying]     = useState(false);
-  const [currentTime, setCurrentTime] = useState(0);
+  const [isPlaying, setIsPlaying]       = useState(false);
+  const [audioLoading, setAudioLoading] = useState(false);
+  const [currentTime, setCurrentTime]   = useState(0);
   const CLIP_DURATION = songData.clipDuration ?? 10;
 
   // Auto-play when preview is ready (PC only — mobile blocks autoplay)
@@ -672,20 +676,26 @@ function ListeningScreen({ artist, trackInfo, songData, noPreview, loading, erro
 
   const togglePlay = () => {
     const audio = audioRef.current;
-    if (!audio) return;
+    if (!audio || audioLoading) return;
     if (isPlaying) { audio.pause(); setIsPlaying(false); }
     else {
       if (audio.currentTime >= CLIP_DURATION) { audio.currentTime = 0; setCurrentTime(0); }
-      audio.play().then(() => setIsPlaying(true)).catch(() => setIsPlaying(false));
+      setAudioLoading(true);
+      audio.play()
+        .then(() => { setIsPlaying(true); setAudioLoading(false); })
+        .catch(() => { setIsPlaying(false); setAudioLoading(false); });
     }
   };
 
   const handleReplay = () => {
     const audio = audioRef.current;
-    if (!audio) return;
+    if (!audio || audioLoading) return;
     audio.currentTime = 0;
     setCurrentTime(0);
-    audio.play().then(() => setIsPlaying(true)).catch(() => setIsPlaying(false));
+    setAudioLoading(true);
+    audio.play()
+      .then(() => { setIsPlaying(true); setAudioLoading(false); })
+      .catch(() => { setIsPlaying(false); setAudioLoading(false); });
   };
 
   // Active lyric line: progress through all lines over CLIP_DURATION
@@ -763,14 +773,16 @@ function ListeningScreen({ artist, trackInfo, songData, noPreview, loading, erro
         <>
           <audio ref={audioRef} src={trackInfo.previewUrl} preload="auto" />
           <div className="player-area">
-            <button className="play-btn-large" onClick={togglePlay} aria-label={isPlaying ? '일시정지' : '재생'}>
-              {isPlaying ? '⏸' : '▶'}
+            <button className="play-btn-large" onClick={togglePlay} disabled={audioLoading}
+              aria-label={audioLoading ? '로딩 중' : isPlaying ? '일시정지' : '재생'}
+              style={audioLoading ? { opacity: 0.6 } : {}}>
+              {audioLoading ? '⏳' : isPlaying ? '⏸' : '▶'}
             </button>
             <div className="progress-bar">
               <div className="progress-fill" style={{ width: `${progress}%` }} />
             </div>
             <div className="time-label">
-              {isPlaying ? `${timeLeft}초 남음` : isDone ? '재생 완료' : isMobileDevice() && !isDone ? '▶ 버튼을 눌러 재생하세요' : '일시정지'}
+              {audioLoading ? '로딩 중...' : isPlaying ? `${timeLeft}초 남음` : isDone ? '재생 완료' : isMobileDevice() && !isDone ? '▶ 버튼을 눌러 재생하세요' : '일시정지'}
             </div>
           </div>
           {trackInfo.trackViewUrl && <AppleAttribution trackViewUrl={trackInfo.trackViewUrl} />}
@@ -908,19 +920,24 @@ export default function App() {
   const [trackError, setTrackError]           = useState(null);
   const [noPreview, setNoPreview]             = useState(false);
   const [quizResult, setQuizResult]           = useState(null);
+  const artFetchActive = useRef(true);
 
-  // Pre-fetch artist card art — sequential with small delay to avoid iTunes rate limit
+  // Pre-fetch artist card art — sequential with delay to avoid iTunes rate limit
   useEffect(() => {
+    artFetchActive.current = true;
     (async () => {
       for (const artist of ARTISTS) {
+        if (!artFetchActive.current) break;
         const url = await fetchArtistArt(artist.artQuery);
-        if (url) setArtistImages((prev) => ({ ...prev, [artist.id]: url }));
-        await delay(150); // 150ms 간격으로 iTunes 레이트 리밋 방지
+        if (artFetchActive.current && url) setArtistImages((prev) => ({ ...prev, [artist.id]: url }));
+        await delay(500); // 500ms 간격 — 모바일 rate limit 방지
       }
     })();
+    return () => { artFetchActive.current = false; };
   }, []);
 
   const handleSelectArtist = async (artist) => {
+    artFetchActive.current = false; // 아티스트 선택 시 art 프리페치 중단 → iTunes rate limit 방지
     const songData = SONGS[artist.id];
     setSelectedArtist(artist);
     setCurrentSongData(songData);
