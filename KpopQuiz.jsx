@@ -194,12 +194,19 @@ const SONGS = {
   },
 };
 
+// fetch with timeout (모바일 느린 네트워크 대비)
+function fetchWithTimeout(url, ms = 8000) {
+  const controller = new AbortController();
+  const id = setTimeout(() => controller.abort(), ms);
+  return fetch(url, { signal: controller.signal }).finally(() => clearTimeout(id));
+}
+
 // ─── iTunes Search API ────────────────────────────────────────────────────────
 async function fetchItunesTrack(query, artistHint) {
   const url =
     `https://itunes.apple.com/search?` +
     `term=${encodeURIComponent(query)}&media=music&entity=song&limit=5&country=KR`;
-  const res = await fetch(url);
+  const res = await fetchWithTimeout(url);
   if (!res.ok) throw new Error(`iTunes API 오류: ${res.status}`);
   const data = await res.json();
   const results = data.results ?? [];
@@ -224,7 +231,7 @@ async function fetchItunesTrack(query, artistHint) {
   return {
     previewUrl,
     albumArt:      track.artworkUrl100
-                     ? track.artworkUrl100.replace(/\d+x\d+bb/, '400x400bb')
+                     ? track.artworkUrl100.replace(/^http:\/\//i, 'https://').replace(/\d+x\d+bb/, '400x400bb')
                      : null,
     trackName:     track.trackName,
     artistName:    track.artistName,
@@ -239,7 +246,7 @@ async function fetchArtistArt(artQuery) {
     const url =
       `https://itunes.apple.com/search?` +
       `term=${encodeURIComponent(artQuery)}&media=music&entity=song&limit=3&country=KR`;
-    const res = await fetch(url);
+    const res = await fetchWithTimeout(url);
     const data = await res.json();
     const art = data.results?.[0]?.artworkUrl100;
     return art ? art.replace(/\d+x\d+bb/, '600x600bb') : null;
@@ -584,7 +591,8 @@ function ArtistCard({ artist, imageUrl, onClick }) {
       onKeyDown={(e) => e.key === 'Enter' && onClick()}
     >
       {imageUrl ? (
-        <img src={imageUrl} alt={artist.ko} loading="lazy" />
+        <img src={imageUrl} alt={artist.ko} loading="lazy"
+          onError={(e) => { e.target.style.display = 'none'; }} />
       ) : (
         <div className="img-placeholder">🎵</div>
       )}
@@ -636,7 +644,7 @@ function ListeningScreen({ artist, trackInfo, songData, noPreview, loading, erro
     if (isMobileDevice()) return;
     audioRef.current.volume = 1;
     const t = setTimeout(() => {
-      audioRef.current?.play().then(() => setIsPlaying(true)).catch(() => {});
+      audioRef.current?.play().then(() => setIsPlaying(true)).catch(() => setIsPlaying(false));
     }, 600);
     return () => clearTimeout(t);
   }, [trackInfo?.previewUrl]);
@@ -651,11 +659,14 @@ function ListeningScreen({ artist, trackInfo, songData, noPreview, loading, erro
       if (t >= CLIP_DURATION) { audio.pause(); setIsPlaying(false); }
     };
     const onEnded = () => setIsPlaying(false);
+    const onError = () => setIsPlaying(false);
     audio.addEventListener('timeupdate', onTimeUpdate);
     audio.addEventListener('ended', onEnded);
+    audio.addEventListener('error', onError);
     return () => {
       audio.removeEventListener('timeupdate', onTimeUpdate);
       audio.removeEventListener('ended', onEnded);
+      audio.removeEventListener('error', onError);
     };
   }, [trackInfo?.previewUrl]);
 
@@ -665,7 +676,7 @@ function ListeningScreen({ artist, trackInfo, songData, noPreview, loading, erro
     if (isPlaying) { audio.pause(); setIsPlaying(false); }
     else {
       if (audio.currentTime >= CLIP_DURATION) { audio.currentTime = 0; setCurrentTime(0); }
-      audio.play().then(() => setIsPlaying(true)).catch(() => {});
+      audio.play().then(() => setIsPlaying(true)).catch(() => setIsPlaying(false));
     }
   };
 
@@ -674,7 +685,7 @@ function ListeningScreen({ artist, trackInfo, songData, noPreview, loading, erro
     if (!audio) return;
     audio.currentTime = 0;
     setCurrentTime(0);
-    audio.play().then(() => setIsPlaying(true)).catch(() => {});
+    audio.play().then(() => setIsPlaying(true)).catch(() => setIsPlaying(false));
   };
 
   // Active lyric line: progress through all lines over CLIP_DURATION
@@ -721,7 +732,8 @@ function ListeningScreen({ artist, trackInfo, songData, noPreview, loading, erro
     <div className="screen">
       <div className="song-info">
         {trackInfo?.albumArt ? (
-          <img className="artist-img" src={trackInfo.albumArt} alt={artist.ko} />
+          <img className="artist-img" src={trackInfo.albumArt} alt={artist.ko}
+            onError={(e) => { e.target.style.display = 'none'; }} />
         ) : (
           <div style={{ width: 100, height: 100, borderRadius: '50%', background: '#1a1a2e', margin: '0 auto 12px', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 40, border: '3px solid #ff6eb4' }}>🎵</div>
         )}
@@ -918,8 +930,19 @@ export default function App() {
     setLoadingTrack(true);
     setScreen('listen');
 
+    let track = null;
+    let lastError = null;
+    for (let attempt = 0; attempt < 2; attempt++) {
+      try {
+        track = await fetchItunesTrack(songData.itunesQuery, songData.artistHint);
+        if (track) break;
+      } catch (e) {
+        lastError = e;
+        if (attempt === 0) await delay(1000);
+      }
+    }
     try {
-      const track = await fetchItunesTrack(songData.itunesQuery, songData.artistHint);
+      if (!track && lastError) throw lastError;
       if (!track) {
         setTrackError('곡을 찾을 수 없어요. 잠시 후 다시 시도해주세요.');
       } else if (!track.previewUrl) {
@@ -928,7 +951,7 @@ export default function App() {
       } else {
         setTrackInfo(track);
       }
-    } catch (e) {
+    } catch {
       setTrackError('곡을 불러오는 데 실패했어요. 네트워크 연결을 확인하고 다시 시도해주세요.');
     } finally {
       setLoadingTrack(false);
