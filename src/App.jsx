@@ -195,6 +195,58 @@ const SONGS = {
   },
 };
 
+// ─── Translations ────────────────────────────────────────────────────────────
+const TRANSLATIONS = {
+  ko: {
+    title:           '🎤 K-POP 가사 퀴즈',
+    subtitle:        '아티스트를 선택하고 가사를 맞혀보세요!',
+    lyricsLabel:     '가사',
+    replay:          '▶ 다시 듣기',
+    goQuiz:          '퀴즈 풀기 →',
+    backArtist:      '← 아티스트 선택',
+    timeLeft:        (n) => `${n}초 남음`,
+    playDone:        '재생 완료',
+    paused:          '일시정지',
+    pressPlay:       '▶ 버튼을 눌러 재생하세요',
+    mismatch:        '⚠️ 다른 버전일 수 있어요',
+    noPreview:       '이 곡의 미리듣기를 불러올 수 없어요.\n다른 곡을 선택해 주세요.',
+    errNotFound:     '곡을 찾을 수 없어요. 잠시 후 다시 시도해주세요.',
+    errLoad:         '곡을 불러오는 데 실패했어요. 네트워크 연결을 확인하고 다시 시도해주세요.',
+    quizLabel:       '퀴즈',
+    quizInstruction: '빈칸에 들어갈 가사를 고르세요!',
+    correct:         '정답이에요! 🎉',
+    wrong:           '아쉬워요 😢',
+    answerLyric:     '정답 가사',
+    retryListen:     '다시 듣기',
+    home:            '처음으로',
+    splashSkip:      '탭하여 시작',
+  },
+  ja: {
+    title:           '🎤 K-POP 歌詞クイズ',
+    subtitle:        'アーティストを選んで歌詞を当てよう！',
+    lyricsLabel:     '歌詞',
+    replay:          '▶ もう一度聴く',
+    goQuiz:          'クイズを解く →',
+    backArtist:      '← アーティスト選択',
+    timeLeft:        (n) => `残り${n}秒`,
+    playDone:        '再生完了',
+    paused:          '一時停止',
+    pressPlay:       '▶ ボタンを押して再生',
+    mismatch:        '⚠️ 別バージョンの可能性あり',
+    noPreview:       'このプレビューは読み込めません。\n別の曲を選んでください。',
+    errNotFound:     '曲が見つかりません。しばらくしてから再試行してください。',
+    errLoad:         '曲の読み込みに失敗しました。ネットワーク接続を確認してください。',
+    quizLabel:       'クイズ',
+    quizInstruction: '空欄に入る歌詞を選んでください！',
+    correct:         '正解です！🎉',
+    wrong:           '残念！😢',
+    answerLyric:     '正解の歌詞',
+    retryListen:     'もう一度聴く',
+    home:            '最初から',
+    splashSkip:      'タップして開始',
+  },
+};
+
 // ─── iTunes Search API ────────────────────────────────────────────────────────
 async function fetchItunesTrack(query, artistHint) {
   const url =
@@ -526,10 +578,28 @@ const styles = `
   }
 
   .splash-skip:hover { color: #555; }
+
+  /* Language toggle */
+  .lang-toggle {
+    position: fixed; top: 12px; right: 16px; z-index: 100;
+    display: flex; gap: 4px;
+  }
+
+  .lang-btn {
+    padding: 4px 10px; border-radius: 20px; font-size: 12px; font-weight: 700;
+    font-family: inherit; cursor: pointer; border: 1px solid #3a3a5a;
+    background: #1a1a2e; color: #a0a0c0;
+    transition: background 0.15s, color 0.15s, border-color 0.15s;
+  }
+
+  .lang-btn.active {
+    background: linear-gradient(135deg, #ff6eb4, #a78bfa);
+    color: #fff; border-color: transparent;
+  }
 `;
 
 // ─── Splash Screen ────────────────────────────────────────────────────────────
-function SplashScreen({ onDone }) {
+function SplashScreen({ onDone, t }) {
   const [fadingOut, setFadingOut] = useState(false);
 
   const dismiss = () => {
@@ -545,7 +615,7 @@ function SplashScreen({ onDone }) {
   return (
     <div className={`splash${fadingOut ? ' fade-out' : ''}`} onClick={dismiss}>
       <img src="/arin-logo.jpg" alt="Arin Korean Lab" />
-      <button className="splash-skip">탭하여 시작</button>
+      <button className="splash-skip">{t('splashSkip')}</button>
     </div>
   );
 }
@@ -595,13 +665,13 @@ function ArtistCard({ artist, imageUrl, onClick }) {
 }
 
 // ─── Screen 1: Artist Selection ───────────────────────────────────────────────
-function ArtistScreen({ artistImages, onSelectArtist }) {
+function ArtistScreen({ artistImages, onSelectArtist, t }) {
   return (
     <div className="screen">
       <div className="header">
         <img src="/header-logo.jpg" alt="Logo" style={{ width: 'min(240px, 70vw)', marginBottom: 12 }} />
-        <h1>🎤 K-POP 가사 퀴즈</h1>
-        <p>아티스트를 선택하고 가사를 맞혀보세요!</p>
+        <h1>{t('title')}</h1>
+        <p>{t('subtitle')}</p>
       </div>
       <div className="artist-grid">
         {ARTISTS.map((artist) => (
@@ -620,7 +690,7 @@ function ArtistScreen({ artistImages, onSelectArtist }) {
 }
 
 // ─── Screen 2: Listening Phase ────────────────────────────────────────────────
-function ListeningScreen({ artist, trackInfo, songData, noPreview, loading, error, onQuiz, onBack }) {
+function ListeningScreen({ artist, trackInfo, songData, noPreview, loading, error, onQuiz, onBack, t }) {
   const audioRef = useRef(null);
   const [isPlaying, setIsPlaying]     = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
@@ -728,7 +798,7 @@ function ListeningScreen({ artist, trackInfo, songData, noPreview, loading, erro
             {trackInfo.trackName} — {trackInfo.artistName}
             {trackInfo.artistMismatch && (
               <span style={{ marginLeft: 6, background: 'rgba(251,191,36,0.12)', border: '1px solid #fbbf24', color: '#fbbf24', borderRadius: 5, padding: '1px 6px', fontSize: 10, fontWeight: 700 }}>
-                ⚠️ 다른 버전일 수 있어요
+                {t('mismatch')}
               </span>
             )}
           </div>
@@ -739,7 +809,9 @@ function ListeningScreen({ artist, trackInfo, songData, noPreview, loading, erro
       {error    && <div className="error-box">{error}</div>}
       {noPreview && (
         <div className="warning-box">
-          이 곡의 미리듣기를 불러올 수 없어요.<br />다른 곡을 선택해 주세요.
+          {t('noPreview').split('\n').map((line, i) => (
+            <React.Fragment key={i}>{line}{i === 0 && <br />}</React.Fragment>
+          ))}
         </div>
       )}
 
@@ -754,7 +826,7 @@ function ListeningScreen({ artist, trackInfo, songData, noPreview, loading, erro
               <div className="progress-fill" style={{ width: `${progress}%` }} />
             </div>
             <div className="time-label">
-              {isPlaying ? `${timeLeft}초 남음` : isDone ? '재생 완료' : isMobileDevice() && !isDone ? '▶ 버튼을 눌러 재생하세요' : '일시정지'}
+              {isPlaying ? t('timeLeft')(timeLeft) : isDone ? t('playDone') : isMobileDevice() && !isDone ? t('pressPlay') : t('paused')}
             </div>
           </div>
           {trackInfo.trackViewUrl && <AppleAttribution trackViewUrl={trackInfo.trackViewUrl} />}
@@ -763,7 +835,7 @@ function ListeningScreen({ artist, trackInfo, songData, noPreview, loading, erro
 
       {!loading && (
         <div className="lyrics-container">
-          <h3>가사</h3>
+          <h3>{t('lyricsLabel')}</h3>
           {lyrics.map((line, idx) => renderLine(line, idx))}
         </div>
       )}
@@ -771,22 +843,22 @@ function ListeningScreen({ artist, trackInfo, songData, noPreview, loading, erro
       <div style={{ display: 'flex', gap: 10, marginBottom: 8 }}>
         {trackInfo?.previewUrl && (
           <button className="btn btn-secondary" style={{ flex: 1 }} onClick={handleReplay}>
-            ▶ 다시 듣기
+            {t('replay')}
           </button>
         )}
         <button className="btn btn-primary" style={{ flex: 1 }} onClick={onQuiz} disabled={loading}>
-          퀴즈 풀기 →
+          {t('goQuiz')}
         </button>
       </div>
       <button className="btn btn-outline" style={{ width: '100%', marginBottom: 20 }} onClick={onBack}>
-        ← 아티스트 선택
+        {t('backArtist')}
       </button>
     </div>
   );
 }
 
 // ─── Screen 3: Quiz ───────────────────────────────────────────────────────────
-function QuizScreen({ artist, songData, onAnswer }) {
+function QuizScreen({ artist, songData, onAnswer, t }) {
   const [selected, setSelected] = useState(null);
   const shuffledChoices = useRef(shuffle(songData.choices)).current;
 
@@ -810,12 +882,12 @@ function QuizScreen({ artist, songData, onAnswer }) {
   return (
     <div className="screen">
       <div className="header">
-        <div className="screen-title">퀴즈</div>
+        <div className="screen-title">{t('quizLabel')}</div>
         <h1 style={{ fontSize: 20 }}>{songData.title}</h1>
         <p style={{ marginTop: 4 }}>{artist.ko} ({artist.en})</p>
       </div>
       <p style={{ textAlign: 'center', color: '#a0a0c0', fontSize: 14, marginBottom: 12 }}>
-        빈칸에 들어갈 가사를 고르세요!
+        {t('quizInstruction')}
       </p>
       <div className="quiz-lyric">{renderQuizLine()}</div>
       <div className="choices">
@@ -837,7 +909,7 @@ function QuizScreen({ artist, songData, onAnswer }) {
 }
 
 // ─── Screen 4: Result ─────────────────────────────────────────────────────────
-function ResultScreen({ correct, artist, songData, trackInfo, onHome, onRetry }) {
+function ResultScreen({ correct, artist, songData, trackInfo, onHome, onRetry, t }) {
   const renderFullLine = () => {
     const parts = songData.fullLine.split(songData.blankText);
     return (
@@ -855,10 +927,10 @@ function ResultScreen({ correct, artist, songData, trackInfo, onHome, onRetry })
         {correct ? '○' : '✕'}
       </div>
       <div className="result-msg" style={{ color: correct ? '#34d399' : '#f87171' }}>
-        {correct ? '정답이에요! 🎉' : '아쉬워요 😢'}
+        {correct ? t('correct') : t('wrong')}
       </div>
       <div className="result-lyric">
-        <div style={{ fontSize: 13, color: '#a0a0c0', marginBottom: 10 }}>정답 가사</div>
+        <div style={{ fontSize: 13, color: '#a0a0c0', marginBottom: 10 }}>{t('answerLyric')}</div>
         {renderFullLine()}
       </div>
       {trackInfo?.trackViewUrl && (
@@ -868,12 +940,12 @@ function ResultScreen({ correct, artist, songData, trackInfo, onHome, onRetry })
       )}
       {correct ? (
         <div className="result-btns">
-          <button className="btn btn-primary" style={{ flex: 1 }} onClick={onHome}>처음으로</button>
+          <button className="btn btn-primary" style={{ flex: 1 }} onClick={onHome}>{t('home')}</button>
         </div>
       ) : (
         <div className="result-btns">
-          <button className="btn btn-secondary" style={{ flex: 1 }} onClick={onRetry}>다시 듣기</button>
-          <button className="btn btn-primary"   style={{ flex: 1 }} onClick={onHome}>처음으로</button>
+          <button className="btn btn-secondary" style={{ flex: 1 }} onClick={onRetry}>{t('retryListen')}</button>
+          <button className="btn btn-primary"   style={{ flex: 1 }} onClick={onHome}>{t('home')}</button>
         </div>
       )}
     </div>
@@ -882,6 +954,9 @@ function ResultScreen({ correct, artist, songData, trackInfo, onHome, onRetry })
 
 // ─── Main App ─────────────────────────────────────────────────────────────────
 export default function App() {
+  const [lang, setLang]                       = useState('ko');
+  const t = (key) => TRANSLATIONS[lang][key];
+
   const [showSplash, setShowSplash]           = useState(true);
   const [artistImages, setArtistImages]       = useState({});
   const [screen, setScreen]                   = useState('artist');
@@ -917,7 +992,7 @@ export default function App() {
     try {
       const track = await fetchItunesTrack(songData.itunesQuery, songData.artistHint);
       if (!track) {
-        setTrackError('곡을 찾을 수 없어요. 잠시 후 다시 시도해주세요.');
+        setTrackError(t('errNotFound'));
       } else if (!track.previewUrl) {
         setNoPreview(true);
         setTrackInfo(track);
@@ -925,7 +1000,7 @@ export default function App() {
         setTrackInfo(track);
       }
     } catch (e) {
-      setTrackError('곡을 불러오는 데 실패했어요. 네트워크 연결을 확인하고 다시 시도해주세요.');
+      setTrackError(t('errLoad'));
     } finally {
       setLoadingTrack(false);
     }
@@ -934,13 +1009,18 @@ export default function App() {
   return (
     <>
       <style>{styles}</style>
-      {showSplash && <SplashScreen onDone={() => setShowSplash(false)} />}
+      {showSplash && <SplashScreen onDone={() => setShowSplash(false)} t={t} />}
+      <div className="lang-toggle">
+        <button className={`lang-btn${lang === 'ko' ? ' active' : ''}`} onClick={() => setLang('ko')}>KO</button>
+        <button className={`lang-btn${lang === 'ja' ? ' active' : ''}`} onClick={() => setLang('ja')}>JA</button>
+      </div>
       <div className="bg-gradient" />
       <div className="app">
         {screen === 'artist' && (
           <ArtistScreen
             artistImages={artistImages}
             onSelectArtist={handleSelectArtist}
+            t={t}
           />
         )}
 
@@ -954,6 +1034,7 @@ export default function App() {
             error={trackError}
             onQuiz={() => setScreen('quiz')}
             onBack={() => setScreen('artist')}
+            t={t}
           />
         )}
 
@@ -962,6 +1043,7 @@ export default function App() {
             artist={selectedArtist}
             songData={currentSongData}
             onAnswer={(correct) => { setQuizResult(correct); setScreen('result'); }}
+            t={t}
           />
         )}
 
@@ -973,6 +1055,7 @@ export default function App() {
             trackInfo={trackInfo}
             onHome={() => setScreen('artist')}
             onRetry={() => setScreen('listen')}
+            t={t}
           />
         )}
       </div>
