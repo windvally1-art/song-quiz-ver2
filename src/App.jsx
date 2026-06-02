@@ -4,12 +4,12 @@ import React, { useState, useEffect, useRef } from 'react';
 const ARTISTS = [
   { id: 'IU',         ko: '아이유',     en: 'IU',           color: '#ff9eb5', artQuery: 'Celebrity IU' },
   { id: 'TWICE',      ko: '트와이스',   en: 'TWICE',         color: '#ff6eb4', artQuery: 'FANCY TWICE' },
-  { id: 'IVE',        ko: '아이브',     en: 'IVE',           color: '#a78bfa', artQuery: 'After Like IVE' },
+  { id: 'IVE',        ko: '아이브',     en: 'IVE',           color: '#a78bfa', artQuery: 'ELEVEN IVE' },
   { id: 'GIDLE',      ko: '여자아이들', en: '(G)I-DLE',      color: '#f59e0b', artQuery: 'Tomboy (G)I-DLE' },
   { id: 'BTS',        ko: 'BTS',        en: 'BTS',           color: '#7c3aed', artQuery: 'Butter BTS' },
   { id: 'ILLIT',      ko: '아일릿',     en: 'ILLIT',         color: '#fb7185', artQuery: "I'm Not Cute Anymore ILLIT" },
   { id: 'H2H',        ko: '하츠2하츠',  en: 'Hearts2Hearts', color: '#34d399', artQuery: 'RUDE Hearts2Hearts' },
-  { id: 'SVT',        ko: '세븐틴',     en: 'SEVENTEEN',     color: '#60a5fa', artQuery: 'Left Right SEVENTEEN' },
+  { id: 'SVT',        ko: '세븐틴',     en: 'SEVENTEEN',     color: '#60a5fa', artQuery: 'Don\'t Wanna Cry SEVENTEEN' },
   { id: 'SKZ',        ko: '스트레이 키즈', en: 'Stray Kids',   color: '#fbbf24', artQuery: 'CASE 143 Stray Kids' },
   { id: 'LESSERAFIM', ko: '르세라핌',   en: 'LE SSERAFIM',   color: '#f97316', artQuery: 'EASY LE SSERAFIM' },
 ];
