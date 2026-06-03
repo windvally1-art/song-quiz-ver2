@@ -2,10 +2,10 @@ import React, { useState, useEffect, useRef } from 'react';
 
 // ─── Artists ───────────────────────────────────────────────────────────────────
 const ARTISTS = [
-  { id: 'IU',         ko: '아이유',     en: 'IU',           color: '#ff9eb5', artQuery: 'Celebrity IU' },
-  { id: 'TWICE',      ko: '트와이스',   en: 'TWICE',         color: '#ff6eb4', artQuery: 'FANCY TWICE' },
+  { id: 'IU',         ko: '아이유',     en: 'IU',           color: '#ff9eb5', artQuery: 'Lilac IU' },
+  { id: 'TWICE',      ko: '트와이스',   en: 'TWICE',         color: '#ff6eb4', artQuery: 'Feel Special TWICE' },
   { id: 'IVE',        ko: '아이브',     en: 'IVE',           color: '#a78bfa', artQuery: 'ELEVEN IVE' },
-  { id: 'GIDLE',      ko: '여자아이들', en: '(G)I-DLE',      color: '#f59e0b', artQuery: 'Tomboy (G)I-DLE' },
+  { id: 'GIDLE',      ko: '여자아이들', en: '(G)I-DLE',      color: '#f59e0b', artQuery: 'Queencard GIDLE' },
   { id: 'BTS',        ko: 'BTS',        en: 'BTS',           color: '#7c3aed', artQuery: 'Butter BTS' },
   { id: 'ILLIT',      ko: '아일릿',     en: 'ILLIT',         color: '#fb7185', artQuery: "I'm Not Cute Anymore ILLIT" },
   { id: 'H2H',        ko: '하츠2하츠',  en: 'Hearts2Hearts', color: '#34d399', artQuery: 'RUDE Hearts2Hearts' },
