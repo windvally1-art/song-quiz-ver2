@@ -261,19 +261,34 @@ const SONGS = {
   // ── 스트레이 키즈 ─────────────────────────────────────────────────────────
   SKZ: [
     {
+      title: '락 (樂)',
+      previewUrl: 'https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/0f/a9/a9/0fa9a9ad-c9bd-a1ed-4cc5-d9eea62262a0/mzaf_12775480570953170754.plus.aac.p.m4a',
+      trackViewUrl: 'https://music.apple.com/kr/album/%EB%9D%BD-%EF%A5%9C/1711752408?i=1711752410',
+      clipStart: 7,
+      lineDurations: [2, 2, 8],
+      lyrics: [
+        '몸부림치며 roll',
+        '냅다 던져버려',
+        '맞닥뜨려 세상의 소음',
+      ],
+      blankLine: 2,
+      blankText: '세상의 소음',
+      fullLine: '맞닥뜨려 세상의 소음',
+      choices: ['세상의 소음', '세상의 고음', '사상의 소음', '세상의 저음'],
+    },
+    {
       title: 'CASE 143',
       previewUrl: 'https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/ec/79/ef/ec79ef3f-acc5-fb98-db5f-a981b390cb56/mzaf_14059686955484905815.plus.aac.p.m4a',
       trackViewUrl: 'https://music.apple.com/kr/album/case-143/1645273318?i=1645273319',
       clipDuration: 12,
       lyrics: [
-        'Why do I keep getting attracted',
         '자석 같이 끌려가',
         'I cannot explain this reaction',
         '이것밖에 143',
         'Why do I keep getting attracted',
         '네 모습만 떠올라',
       ],
-      blankLine: 5,
+      blankLine: 4,
       blankText: '네 모습만 떠올라',
       fullLine: '네 모습만 떠올라',
       choices: ['네 모습만 떠올라', '네 얼굴만 떠올라', '네 모습만 생각나', '네 모습은 떠났어'],
