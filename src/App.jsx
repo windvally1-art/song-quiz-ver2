@@ -2,16 +2,16 @@ import React, { useState, useEffect, useRef } from 'react';
 
 // ─── Artists ───────────────────────────────────────────────────────────────────
 const ARTISTS = [
-  { id: 'IU',         ko: '아이유',     en: 'IU',           color: '#ff9eb5', artQuery: 'Lilac IU' },
-  { id: 'TWICE',      ko: '트와이스',   en: 'TWICE',         color: '#ff6eb4', artQuery: 'Feel Special TWICE' },
-  { id: 'IVE',        ko: '아이브',     en: 'IVE',           color: '#a78bfa', artQuery: 'ELEVEN IVE' },
-  { id: 'GIDLE',      ko: '여자아이들', en: '(G)I-DLE',      color: '#f59e0b', artQuery: 'Nxde (G)I-DLE' },
-  { id: 'BTS',        ko: 'BTS',        en: 'BTS',           color: '#7c3aed', artQuery: 'Butter BTS' },
-  { id: 'ILLIT',      ko: '아일릿',     en: 'ILLIT',         color: '#fb7185', artQuery: "I'm Not Cute Anymore ILLIT" },
-  { id: 'H2H',        ko: '하츠2하츠',  en: 'Hearts2Hearts', color: '#34d399', artQuery: 'RUDE Hearts2Hearts' },
-  { id: 'SVT',        ko: '세븐틴',     en: 'SEVENTEEN',     color: '#60a5fa', artQuery: 'Don\'t Wanna Cry SEVENTEEN' },
-  { id: 'SKZ',        ko: '스트레이 키즈', en: 'Stray Kids',   color: '#fbbf24', artQuery: 'CASE 143 Stray Kids' },
-  { id: 'LESSERAFIM', ko: '르세라핌',   en: 'LE SSERAFIM',   color: '#f97316', artQuery: 'EASY LE SSERAFIM' },
+  { id: 'IU',         ko: '아이유',       en: 'IU',            color: '#ff9eb5', img: 'https://is1-ssl.mzstatic.com/image/thumb/Music125/v4/35/9f/83/359f83b3-1423-3153-1641-98e948b7fc65/cover_-_EDAM_5_LILAC.jpg/400x400bb.jpg' },
+  { id: 'TWICE',      ko: '트와이스',     en: 'TWICE',          color: '#ff6eb4', img: 'https://is1-ssl.mzstatic.com/image/thumb/Music124/v4/e9/2e/21/e92e214d-5a7a-5d38-76f8-f41cdb8600d0/dj.myigyoai.jpg/400x400bb.jpg' },
+  { id: 'IVE',        ko: '아이브',       en: 'IVE',            color: '#a78bfa', img: 'https://is1-ssl.mzstatic.com/image/thumb/Music116/v4/d3/63/4a/d3634a37-8dd2-8fc6-d138-895b3d237611/IVE_OnlineCover_fix.jpg/400x400bb.jpg' },
+  { id: 'GIDLE',      ko: '여자아이들',   en: '(G)I-DLE',       color: '#f59e0b', img: 'https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/30/c0/56/30c056d6-35e7-19a6-6252-4f44ba2ef3ab/cover_KM0020047_1.jpg/400x400bb.jpg' },
+  { id: 'BTS',        ko: 'BTS',          en: 'BTS',            color: '#7c3aed', img: 'https://is1-ssl.mzstatic.com/image/thumb/Music116/v4/27/80/dc/2780dce3-3cdd-d8aa-ec8c-05bf8ad90f9d/196006771362_Cover.jpg/400x400bb.jpg' },
+  { id: 'ILLIT',      ko: '아일릿',       en: 'ILLIT',          color: '#fb7185', img: 'https://is1-ssl.mzstatic.com/image/thumb/Music122/v4/3e/49/1e/3e491e43-4961-21ab-2abe-37fb1c0feb40/196922879227_Cover.jpg/400x400bb.jpg' },
+  { id: 'H2H',        ko: '하츠2하츠',    en: 'Hearts2Hearts',  color: '#34d399', img: 'https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/78/b9/fb/78b9fb30-169a-eab0-38e9-8df725f8f2d6/888735954603.png/400x400bb.jpg' },
+  { id: 'SVT',        ko: '세븐틴',       en: 'SEVENTEEN',      color: '#60a5fa', img: 'https://is1-ssl.mzstatic.com/image/thumb/Music116/v4/e3/76/df/e376df28-c05b-00fd-72de-9d42377a306b/196922628580_Cover.jpg/400x400bb.jpg' },
+  { id: 'SKZ',        ko: '스트레이 키즈', en: 'Stray Kids',    color: '#fbbf24', img: 'https://is1-ssl.mzstatic.com/image/thumb/Music112/v4/0e/12/79/0e1279ed-d25b-400c-b426-730da021f804/SKZ-MAXIDENT-OnlineCover_Final.jpg/400x400bb.jpg' },
+  { id: 'LESSERAFIM', ko: '르세라핌',     en: 'LE SSERAFIM',    color: '#f97316', img: 'https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/0c/3b/01/0c3b0191-6170-765d-23a6-1b1c9c25cb77/198704776991_Cover.jpg/400x400bb.jpg' },
 ];
 
 // ─── Songs ────────────────────────────────────────────────────────────────────
@@ -24,8 +24,8 @@ const SONGS = {
   // ── 아이유 ─────────────────────────────────────────────────────────────────
   IU: {
     title: '봄 안녕 봄',
-    itunesQuery: '봄 안녕 봄 IU',
-    artistHint: 'IU',
+    previewUrl: 'https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview114/v4/f5/ca/00/f5ca004f-8f6b-96ad-84e3-30ccb9761e1a/mzaf_171429657157864019.plus.aac.p.m4a',
+    trackViewUrl: 'https://music.apple.com/kr/album/%EB%B4%84-%EC%95%88%EB%85%95-%EB%B4%84/1560113132?i=1560113347',
     lyrics: [
       '낮게부는 바람결이',
     ],
@@ -38,14 +38,17 @@ const SONGS = {
   // ── 트와이스 ───────────────────────────────────────────────────────────────
   TWICE: {
     title: 'What is Love?',
-    itunesQuery: 'What is Love TWICE',
-    artistHint: 'TWICE',
+    previewUrl: 'https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/26/5f/90/265f908b-af2d-1bc0-b0ef-5dda7a48297b/mzaf_17995815526668184452.plus.aac.p.m4a',
+    trackViewUrl: 'https://music.apple.com/kr/album/what-is-love/1369699737?i=1369699742',
     lyrics: [
       '사탕처럼 달콤하다는 데',
+      'I wanna know',
       '하늘을 나는 것 같다는 데',
+      'I wanna know know know know',
       '사랑이 어떤 느낌인지',
     ],
-    blankLine: 1,
+    lineDurations: [2, 1.5, 2, 2, 2.5],
+    blankLine: 2,
     blankText: '하늘을 나는 것 같다는 데',
     fullLine: '하늘을 나는 것 같다는 데',
     choices: [
@@ -59,8 +62,8 @@ const SONGS = {
   // ── 아이브 ────────────────────────────────────────────────────────────────
   IVE: {
     title: 'I AM',
-    itunesQuery: 'I AM IVE K-pop',
-    artistHint: 'IVE',
+    previewUrl: 'https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/3d/57/20/3d5720b3-f6b4-a2fd-8d8f-96515cda91a3/mzaf_17422220011601403216.plus.aac.p.m4a',
+    trackViewUrl: 'https://music.apple.com/kr/album/i-am/1680865390?i=1680865730',
     lyrics: [
       '어딘가의 낯선 뷰',
       "I'll be far away,",
@@ -75,8 +78,8 @@ const SONGS = {
   // ── 여자아이들 ────────────────────────────────────────────────────────────
   GIDLE: {
     title: '클락션 (Klaxon)',
-    itunesQuery: 'Klaxon (G)I-DLE',
-    artistHint: 'I-DLE',
+    previewUrl: 'https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/56/95/78/569578cc-dc52-a724-54da-c63c8d4faf55/mzaf_6411805859235468367.plus.aac.p.m4a',
+    trackViewUrl: 'https://music.apple.com/kr/album/%ED%81%B4%EB%9D%BD%EC%85%98/1753829503?i=1753829505',
     lyrics: [
       '야 나 좀 봐줘 baby',
       '더 hit the klaxon',
@@ -91,8 +94,8 @@ const SONGS = {
   // ── BTS ───────────────────────────────────────────────────────────────────
   BTS: {
     title: '소우주 (Mikrokosmos)',
-    itunesQuery: 'Mikrokosmos BTS',
-    artistHint: 'BTS',
+    previewUrl: 'https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/f4/73/db/f473db8a-b8d9-622b-7828-e40f63af00f7/mzaf_8890385023586453692.plus.aac.p.m4a',
+    trackViewUrl: 'https://music.apple.com/kr/album/%EC%86%8C%EC%9A%B0%EC%A3%BC-mikrokosmos/1599171924?i=1599172213',
     lyrics: [
       '반짝이는',
     ],
@@ -105,8 +108,8 @@ const SONGS = {
   // ── 아일릿 ────────────────────────────────────────────────────────────────
   ILLIT: {
     title: "I'm Not Cute Anymore",
-    itunesQuery: "I'm Not Cute Anymore ILLIT",
-    artistHint: 'ILLIT',
+    previewUrl: 'https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/4e/b0/ee/4eb0eed2-18ab-cd66-fc29-340b9d3713e2/mzaf_6242017905047502425.plus.aac.p.m4a',
+    trackViewUrl: 'https://music.apple.com/kr/album/not-cute-anymore/1849105513?i=1849105517',
     lyrics: [
       '강아지 보다 난',
       '느슨한 해파리가 좋아',
@@ -120,8 +123,8 @@ const SONGS = {
   // ── 하츠2하츠 ─────────────────────────────────────────────────────────────
   H2H: {
     title: 'RUDE!',
-    itunesQuery: 'RUDE Hearts2Hearts',
-    artistHint: 'Hearts2Hearts',
+    previewUrl: 'https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/01/3c/36/013c3684-7121-8f9f-6eb5-00b610ac055c/mzaf_16203782190977593201.plus.aac.p.m4a',
+    trackViewUrl: 'https://music.apple.com/kr/album/rude/1875146814?i=1875146815',
     lyrics: [
       '날 향한 시선에 Hate me?',
       "누가 뭐래도 can't change me",
@@ -136,13 +139,14 @@ const SONGS = {
   // ── 세븐틴 ────────────────────────────────────────────────────────────────
   SVT: {
     title: '음악의 신 (God of Music)',
-    itunesQuery: 'God of Music SEVENTEEN',
-    artistHint: 'SEVENTEEN',
+    previewUrl: 'https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/cc/cf/f5/cccff5c0-802b-41df-b86d-7ebd703908a0/mzaf_7523547242635277538.plus.aac.p.m4a',
+    trackViewUrl: 'https://music.apple.com/kr/album/%EC%9D%8C%EC%95%85%EC%9D%98-%EC%8B%A0/1711288571?i=1711288969',
     lyrics: [
       '이것 또한 나를 위한 소린가',
       'Kick snare Drum bass Piano Bassline',
       '무엇이 우리의 행복인가',
       '뭐 있나 춤을 춰 노래하자',
+      '이것이 우리의 행복이다',
     ],
     blankLine: 2,
     blankText: '무엇이 우리의 행복인가',
@@ -158,8 +162,8 @@ const SONGS = {
   // ── 스트레이 키즈 ─────────────────────────────────────────────────────────
   SKZ: {
     title: 'CASE 143',
-    itunesQuery: 'CASE 143 Stray Kids',
-    artistHint: 'Stray Kids',
+    previewUrl: 'https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/ec/79/ef/ec79ef3f-acc5-fb98-db5f-a981b390cb56/mzaf_14059686955484905815.plus.aac.p.m4a',
+    trackViewUrl: 'https://music.apple.com/kr/album/case-143/1645273318?i=1645273319',
     clipDuration: 12,
     lyrics: [
       'Why do I keep getting attracted',
@@ -178,8 +182,8 @@ const SONGS = {
   // ── 르세라핌 ──────────────────────────────────────────────────────────────
   LESSERAFIM: {
     title: 'SPAGHETTI',
-    itunesQuery: 'SPAGHETTI LE SSERAFIM',
-    artistHint: 'LE SSERAFIM',
+    previewUrl: 'https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/c9/bd/2c/c9bd2ccd-1a28-34d2-b1ae-14da2404f8b3/mzaf_17126970940455785926.plus.aac.p.m4a',
+    trackViewUrl: 'https://music.apple.com/kr/album/spaghetti/1846119152?i=1846119582',
     clipDuration: 12,
     lyrics: [
       'Eat it up eat it eat it up',
@@ -247,64 +251,7 @@ const TRANSLATIONS = {
   },
 };
 
-// ─── iTunes Search API ────────────────────────────────────────────────────────
-async function fetchItunesTrack(query, artistHint) {
-  const url =
-    `https://itunes.apple.com/search?` +
-    `term=${encodeURIComponent(query)}&media=music&entity=song&limit=5&country=KR`;
-  const res = await fetch(url);
-  if (!res.ok) throw new Error(`iTunes API 오류: ${res.status}`);
-  const data = await res.json();
-  const results = data.results ?? [];
 
-  // 1순위: previewUrl 있고 artistName에 hint 포함
-  let track = artistHint
-    ? results.find(
-        (r) => r.previewUrl &&
-               r.artistName?.toLowerCase().includes(artistHint.toLowerCase())
-      )
-    : null;
-
-  const anyWithPreview = results.find((r) => r.previewUrl) ?? null;
-  const artistMismatch = !track && !!anyWithPreview;
-  if (!track) track = anyWithPreview;
-  if (!track) return null;
-
-  // iOS Safari blocks http:// audio on https:// pages (mixed content) → force https
-  const rawPreview = track.previewUrl ?? null;
-  const previewUrl = rawPreview ? rawPreview.replace(/^http:\/\//i, 'https://') : null;
-
-  return {
-    previewUrl,
-    albumArt:      track.artworkUrl100
-                     ? track.artworkUrl100.replace(/\d+x\d+bb/, '400x400bb')
-                     : null,
-    trackName:     track.trackName,
-    artistName:    track.artistName,
-    trackViewUrl:  track.trackViewUrl ?? null,
-    artistMismatch,
-  };
-}
-
-// 아티스트 카드 썸네일용 앨범아트
-async function fetchArtistArt(artQuery) {
-  try {
-    const url =
-      `https://itunes.apple.com/search?` +
-      `term=${encodeURIComponent(artQuery)}&media=music&entity=song&limit=3&country=KR`;
-    const res = await fetch(url);
-    const data = await res.json();
-    const art = data.results?.[0]?.artworkUrl100;
-    return art ? art.replace(/\d+x\d+bb/, '600x600bb') : null;
-  } catch {
-    return null;
-  }
-}
-
-// 레이트 리밋 방지용: n ms 대기
-function delay(ms) {
-  return new Promise((resolve) => setTimeout(resolve, ms));
-}
 
 // ─── Helper ───────────────────────────────────────────────────────────────────
 // pointer:coarse = 터치스크린(모바일/태블릿), pointer:fine = 마우스(PC)
@@ -641,7 +588,8 @@ function AppleAttribution({ trackViewUrl }) {
 }
 
 // ─── Artist Card ──────────────────────────────────────────────────────────────
-function ArtistCard({ artist, imageUrl, onClick }) {
+function ArtistCard({ artist, onClick }) {
+  const [imgFailed, setImgFailed] = useState(false);
   return (
     <div
       className="artist-card"
@@ -651,8 +599,8 @@ function ArtistCard({ artist, imageUrl, onClick }) {
       tabIndex={0}
       onKeyDown={(e) => e.key === 'Enter' && onClick()}
     >
-      {imageUrl ? (
-        <img src={imageUrl} alt={artist.ko} loading="lazy" />
+      {!imgFailed ? (
+        <img src={artist.img} alt={artist.ko} onError={() => setImgFailed(true)} />
       ) : (
         <div className="img-placeholder">🎵</div>
       )}
@@ -665,7 +613,7 @@ function ArtistCard({ artist, imageUrl, onClick }) {
 }
 
 // ─── Screen 1: Artist Selection ───────────────────────────────────────────────
-function ArtistScreen({ artistImages, onSelectArtist, t }) {
+function ArtistScreen({ onSelectArtist, t }) {
   return (
     <div className="screen">
       <div className="header">
@@ -678,7 +626,6 @@ function ArtistScreen({ artistImages, onSelectArtist, t }) {
           <ArtistCard
             key={artist.id}
             artist={artist}
-            imageUrl={artistImages[artist.id]}
             onClick={() => onSelectArtist(artist)}
           />
         ))}
@@ -690,10 +637,11 @@ function ArtistScreen({ artistImages, onSelectArtist, t }) {
 }
 
 // ─── Screen 2: Listening Phase ────────────────────────────────────────────────
-function ListeningScreen({ artist, trackInfo, songData, noPreview, loading, error, onQuiz, onBack, t }) {
+function ListeningScreen({ artist, trackInfo, songData, noPreview, onQuiz, onBack, t }) {
   const audioRef = useRef(null);
-  const [isPlaying, setIsPlaying]     = useState(false);
-  const [currentTime, setCurrentTime] = useState(0);
+  const [isPlaying, setIsPlaying]         = useState(false);
+  const [currentTime, setCurrentTime]     = useState(0);
+  const [audioLoadError, setAudioLoadError] = useState(false);
   const CLIP_DURATION = songData.clipDuration ?? 10;
 
   // Auto-play when preview is ready (PC only — mobile blocks autoplay)
@@ -707,7 +655,7 @@ function ListeningScreen({ artist, trackInfo, songData, noPreview, loading, erro
     return () => clearTimeout(t);
   }, [trackInfo?.previewUrl]);
 
-  // Progress + auto-pause at CLIP_DURATION
+  // Progress + auto-pause at CLIP_DURATION + error for mobile
   useEffect(() => {
     const audio = audioRef.current;
     if (!audio) return;
@@ -717,11 +665,14 @@ function ListeningScreen({ artist, trackInfo, songData, noPreview, loading, erro
       if (t >= CLIP_DURATION) { audio.pause(); setIsPlaying(false); }
     };
     const onEnded = () => setIsPlaying(false);
+    const onAudioError = () => setAudioLoadError(true);
     audio.addEventListener('timeupdate', onTimeUpdate);
     audio.addEventListener('ended', onEnded);
+    audio.addEventListener('error', onAudioError);
     return () => {
       audio.removeEventListener('timeupdate', onTimeUpdate);
       audio.removeEventListener('ended', onEnded);
+      audio.removeEventListener('error', onAudioError);
     };
   }, [trackInfo?.previewUrl]);
 
@@ -731,7 +682,7 @@ function ListeningScreen({ artist, trackInfo, songData, noPreview, loading, erro
     if (isPlaying) { audio.pause(); setIsPlaying(false); }
     else {
       if (audio.currentTime >= CLIP_DURATION) { audio.currentTime = 0; setCurrentTime(0); }
-      audio.play().then(() => setIsPlaying(true)).catch(() => {});
+      audio.play().then(() => setIsPlaying(true)).catch(() => setAudioLoadError(true));
     }
   };
 
@@ -740,15 +691,22 @@ function ListeningScreen({ artist, trackInfo, songData, noPreview, loading, erro
     if (!audio) return;
     audio.currentTime = 0;
     setCurrentTime(0);
-    audio.play().then(() => setIsPlaying(true)).catch(() => {});
+    audio.play().then(() => setIsPlaying(true)).catch(() => setAudioLoadError(true));
   };
 
   // Active lyric line: progress through all lines over CLIP_DURATION
-  const { lyrics, blankLine, blankText } = songData;
-  const activeIdx = Math.min(
-    Math.floor((currentTime / CLIP_DURATION) * lyrics.length),
-    lyrics.length - 1
-  );
+  const { lyrics, blankLine, blankText, lineDurations } = songData;
+  const activeIdx = (() => {
+    if (lineDurations) {
+      let cum = 0;
+      for (let i = 0; i < lineDurations.length; i++) {
+        cum += lineDurations[i];
+        if (currentTime < cum) return i;
+      }
+      return lyrics.length - 1;
+    }
+    return Math.min(Math.floor((currentTime / CLIP_DURATION) * lyrics.length), lyrics.length - 1);
+  })();
 
   const progress = Math.min((currentTime / CLIP_DURATION) * 100, 100);
   const timeLeft = Math.max(0, CLIP_DURATION - currentTime).toFixed(0);
@@ -786,27 +744,12 @@ function ListeningScreen({ artist, trackInfo, songData, noPreview, loading, erro
   return (
     <div className="screen">
       <div className="song-info">
-        {trackInfo?.albumArt ? (
-          <img className="artist-img" src={trackInfo.albumArt} alt={artist.ko} />
-        ) : (
-          <div style={{ width: 100, height: 100, borderRadius: '50%', background: '#1a1a2e', margin: '0 auto 12px', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 40, border: '3px solid #ff6eb4' }}>🎵</div>
-        )}
+        <img className="artist-img" src={artist.img} alt={artist.ko}
+          onError={(e) => { e.target.style.display = 'none'; }} />
         <div className="song-title">{songData.title}</div>
         <div className="song-artist">{artist.ko} ({artist.en})</div>
-        {trackInfo && (
-          <div className="itunes-match">
-            {trackInfo.trackName} — {trackInfo.artistName}
-            {trackInfo.artistMismatch && (
-              <span style={{ marginLeft: 6, background: 'rgba(251,191,36,0.12)', border: '1px solid #fbbf24', color: '#fbbf24', borderRadius: 5, padding: '1px 6px', fontSize: 10, fontWeight: 700 }}>
-                {t('mismatch')}
-              </span>
-            )}
-          </div>
-        )}
       </div>
 
-      {loading && <div className="spinner" />}
-      {error    && <div className="error-box">{error}</div>}
       {noPreview && (
         <div className="warning-box">
           {t('noPreview').split('\n').map((line, i) => (
@@ -818,6 +761,11 @@ function ListeningScreen({ artist, trackInfo, songData, noPreview, loading, erro
       {trackInfo?.previewUrl && (
         <>
           <audio ref={audioRef} src={trackInfo.previewUrl} preload="auto" />
+          {audioLoadError && (
+            <div className="error-box" style={{ marginTop: 8 }}>
+              오디오를 불러올 수 없어요. 네트워크를 확인하거나 다른 아티스트를 선택해주세요.
+            </div>
+          )}
           <div className="player-area">
             <button className="play-btn-large" onClick={togglePlay} aria-label={isPlaying ? '일시정지' : '재생'}>
               {isPlaying ? '⏸' : '▶'}
@@ -833,12 +781,10 @@ function ListeningScreen({ artist, trackInfo, songData, noPreview, loading, erro
         </>
       )}
 
-      {!loading && (
-        <div className="lyrics-container">
-          <h3>{t('lyricsLabel')}</h3>
-          {lyrics.map((line, idx) => renderLine(line, idx))}
-        </div>
-      )}
+      <div className="lyrics-container">
+        <h3>{t('lyricsLabel')}</h3>
+        {lyrics.map((line, idx) => renderLine(line, idx))}
+      </div>
 
       <div style={{ display: 'flex', gap: 10, marginBottom: 8 }}>
         {trackInfo?.previewUrl && (
@@ -846,7 +792,7 @@ function ListeningScreen({ artist, trackInfo, songData, noPreview, loading, erro
             {t('replay')}
           </button>
         )}
-        <button className="btn btn-primary" style={{ flex: 1 }} onClick={onQuiz} disabled={loading}>
+        <button className="btn btn-primary" style={{ flex: 1 }} onClick={onQuiz} disabled={false}>
           {t('goQuiz')}
         </button>
       </div>
@@ -958,52 +904,20 @@ export default function App() {
   const t = (key) => TRANSLATIONS[lang][key];
 
   const [showSplash, setShowSplash]           = useState(true);
-  const [artistImages, setArtistImages]       = useState({});
   const [screen, setScreen]                   = useState('artist');
   const [selectedArtist, setSelectedArtist]   = useState(null);
   const [currentSongData, setCurrentSongData] = useState(null);
   const [trackInfo, setTrackInfo]             = useState(null);
-  const [loadingTrack, setLoadingTrack]       = useState(false);
-  const [trackError, setTrackError]           = useState(null);
   const [noPreview, setNoPreview]             = useState(false);
   const [quizResult, setQuizResult]           = useState(null);
 
-  // Pre-fetch artist card art — sequential with small delay to avoid iTunes rate limit
-  useEffect(() => {
-    (async () => {
-      for (const artist of ARTISTS) {
-        const url = await fetchArtistArt(artist.artQuery);
-        if (url) setArtistImages((prev) => ({ ...prev, [artist.id]: url }));
-        await delay(150); // 150ms 간격으로 iTunes 레이트 리밋 방지
-      }
-    })();
-  }, []);
-
-  const handleSelectArtist = async (artist) => {
+  const handleSelectArtist = (artist) => {
     const songData = SONGS[artist.id];
     setSelectedArtist(artist);
     setCurrentSongData(songData);
-    setTrackInfo(null);
-    setTrackError(null);
-    setNoPreview(false);
-    setLoadingTrack(true);
+    setNoPreview(!songData.previewUrl);
+    setTrackInfo({ previewUrl: songData.previewUrl ?? null, trackViewUrl: songData.trackViewUrl ?? null });
     setScreen('listen');
-
-    try {
-      const track = await fetchItunesTrack(songData.itunesQuery, songData.artistHint);
-      if (!track) {
-        setTrackError(t('errNotFound'));
-      } else if (!track.previewUrl) {
-        setNoPreview(true);
-        setTrackInfo(track);
-      } else {
-        setTrackInfo(track);
-      }
-    } catch (e) {
-      setTrackError(t('errLoad'));
-    } finally {
-      setLoadingTrack(false);
-    }
   };
 
   return (
@@ -1018,7 +932,6 @@ export default function App() {
       <div className="app">
         {screen === 'artist' && (
           <ArtistScreen
-            artistImages={artistImages}
             onSelectArtist={handleSelectArtist}
             t={t}
           />
@@ -1030,8 +943,6 @@ export default function App() {
             trackInfo={trackInfo}
             songData={currentSongData}
             noPreview={noPreview}
-            loading={loadingTrack}
-            error={trackError}
             onQuiz={() => setScreen('quiz')}
             onBack={() => setScreen('artist')}
             t={t}
