@@ -24,213 +24,318 @@ const ARTISTS = [
 // choices   : [정답, 오답×3] — 표시 전 셔플됨
 const SONGS = {
   // ── 아이유 ─────────────────────────────────────────────────────────────────
-  IU: {
-    title: '봄 안녕 봄',
-    previewUrl: 'https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview114/v4/f5/ca/00/f5ca004f-8f6b-96ad-84e3-30ccb9761e1a/mzaf_171429657157864019.plus.aac.p.m4a',
-    trackViewUrl: 'https://music.apple.com/kr/album/%EB%B4%84-%EC%95%88%EB%85%95-%EB%B4%84/1560113132?i=1560113347',
-    lyrics: [
-      '낮게부는 바람결이',
-    ],
-    blankLine: 0,
-    blankText: '바람결이',
-    fullLine: '낮게부는 바람결이',
-    choices: ['바람결이', '빗물결이', '꽃향기가', '햇살이'],
-  },
+  IU: [
+    {
+      title: '봄 안녕 봄',
+      previewUrl: 'https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview114/v4/f5/ca/00/f5ca004f-8f6b-96ad-84e3-30ccb9761e1a/mzaf_171429657157864019.plus.aac.p.m4a',
+      trackViewUrl: 'https://music.apple.com/kr/album/%EB%B4%84-%EC%95%88%EB%85%95-%EB%B4%84/1560113132?i=1560113347',
+      lyrics: ['낮게부는 바람결이'],
+      blankLine: 0,
+      blankText: '바람결이',
+      fullLine: '낮게부는 바람결이',
+      choices: ['바람결이', '빗물결이', '꽃향기가', '햇살이'],
+    },
+    {
+      title: '금요일에 만나요',
+      previewUrl: 'https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/7c/b6/df/7cb6df7b-ca30-bd0b-bed8-9471f34b1675/mzaf_4255039572410898691.plus.aac.p.m4a',
+      trackViewUrl: 'https://music.apple.com/kr/album/%EA%B8%88%EC%9A%94%EC%9D%BC%EC%97%90-%EB%A7%8C%EB%82%98%EC%9A%94-feat-%EC%9E%A5%EC%9D%B4%EC%A0%95/786862990?i=786863008',
+      lyrics: [
+        '금요일에 시간 어때요?',
+        '주말까지 기다리긴 힘들어',
+        '시간아 달려라',
+        '시계를 더 보채고 싶지만',
+      ],
+      lineDurations: [2.5, 3, 2.5, 2],
+      blankLine: 2,
+      blankText: '시간아 달려라',
+      fullLine: '시간아 달려라',
+      choices: ['시간아 달려라', '시간아 멈춰라', '강물아 달려라', '바람아 달려라'],
+    },
+  ],
 
   // ── 트와이스 ───────────────────────────────────────────────────────────────
-  TWICE: {
-    title: 'What is Love?',
-    previewUrl: 'https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/26/5f/90/265f908b-af2d-1bc0-b0ef-5dda7a48297b/mzaf_17995815526668184452.plus.aac.p.m4a',
-    trackViewUrl: 'https://music.apple.com/kr/album/what-is-love/1369699737?i=1369699742',
-    lyrics: [
-      '사탕처럼 달콤하다는 데',
-      'I wanna know',
-      '하늘을 나는 것 같다는 데',
-      'I wanna know know know know',
-      '사랑이 어떤 느낌인지',
-    ],
-    lineDurations: [2, 1.5, 2, 2, 2.5],
-    blankLine: 2,
-    blankText: '하늘을 나는 것 같다는 데',
-    fullLine: '하늘을 나는 것 같다는 데',
-    choices: [
-      '하늘을 나는 것 같다는 데',
-      '꿈을 꾸는 것 같다는 데',
-      '날개가 생긴 것 같다는 데',
-      '세상을 얻은 것 같다는 데',
-    ],
-  },
+  TWICE: [
+    {
+      title: 'What is Love?',
+      previewUrl: 'https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/26/5f/90/265f908b-af2d-1bc0-b0ef-5dda7a48297b/mzaf_17995815526668184452.plus.aac.p.m4a',
+      trackViewUrl: 'https://music.apple.com/kr/album/what-is-love/1369699737?i=1369699742',
+      lyrics: [
+        '사탕처럼 달콤하다는 데',
+        'I wanna know',
+        '하늘을 나는 것 같다는 데',
+        'I wanna know know know know',
+        '사랑이 어떤 느낌인지',
+      ],
+      lineDurations: [2, 1.5, 2, 2, 2.5],
+      blankLine: 2,
+      blankText: '하늘을 나는 것 같다는 데',
+      fullLine: '하늘을 나는 것 같다는 데',
+      choices: [
+        '하늘을 나는 것 같다는 데',
+        '꿈을 꾸는 것 같다는 데',
+        '날개가 생긴 것 같다는 데',
+        '세상을 얻은 것 같다는 데',
+      ],
+    },
+  ],
 
   // ── 아이브 ────────────────────────────────────────────────────────────────
-  IVE: {
-    title: 'I AM',
-    previewUrl: 'https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/3d/57/20/3d5720b3-f6b4-a2fd-8d8f-96515cda91a3/mzaf_17422220011601403216.plus.aac.p.m4a',
-    trackViewUrl: 'https://music.apple.com/kr/album/i-am/1680865390?i=1680865730',
-    lyrics: [
-      '어딘가의 낯선 뷰',
-      "I'll be far away,",
-      "that's my-",
-    ],
-    blankLine: 0,
-    blankText: '어딘가의',
-    fullLine: '어딘가의 낯선 뷰',
-    choices: ['어딘가의', '전혀 다른', '완전히 새로운', '낯설고도'],
-  },
+  IVE: [
+    {
+      title: 'I AM',
+      previewUrl: 'https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/3d/57/20/3d5720b3-f6b4-a2fd-8d8f-96515cda91a3/mzaf_17422220011601403216.plus.aac.p.m4a',
+      trackViewUrl: 'https://music.apple.com/kr/album/i-am/1680865390?i=1680865730',
+      lyrics: [
+        '어딘가의 낯선 뷰',
+        "I'll be far away,",
+        "that's my-",
+      ],
+      blankLine: 0,
+      blankText: '어딘가의',
+      fullLine: '어딘가의 낯선 뷰',
+      choices: ['어딘가의', '전혀 다른', '완전히 새로운', '낯설고도'],
+    },
+    {
+      title: 'BANG BANG',
+      previewUrl: 'https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/e0/7e/5f/e07e5f06-19a1-1a6d-95d9-5615b56fd125/mzaf_16023007514594622097.plus.aac.p.m4a',
+      trackViewUrl: 'https://music.apple.com/kr/album/bang-bang/1873909537?i=1873909539',
+      lyrics: [
+        'Shaking my head',
+        'This is my way',
+        'Ayayaya I be going out with a bang',
+        'This is my day',
+        '밤이 올 때 Ayayaya',
+      ],
+      lineDurations: [1.5, 1, 3.5, 2, 2],
+      blankLine: 4,
+      blankText: '밤이 올 때',
+      fullLine: '밤이 올 때 Ayayaya',
+      choices: ['밤이 올 때', '낮이 올 때', '범이 올 때', '범이 울 때'],
+    },
+  ],
 
   // ── 여자아이들 ────────────────────────────────────────────────────────────
-  GIDLE: {
-    title: '클락션 (Klaxon)',
-    previewUrl: 'https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/56/95/78/569578cc-dc52-a724-54da-c63c8d4faf55/mzaf_6411805859235468367.plus.aac.p.m4a',
-    trackViewUrl: 'https://music.apple.com/kr/album/%ED%81%B4%EB%9D%BD%EC%85%98/1753829503?i=1753829505',
-    lyrics: [
-      '야 나 좀 봐줘 baby',
-      '더 hit the klaxon',
-      'Hon-hon-hon-hon-hon-honk',
-    ],
-    blankLine: 0,
-    blankText: '야 나 좀 봐줘',
-    fullLine: '야 나 좀 봐줘 baby',
-    choices: ['야 나 좀 봐줘', '야 다 비켜봐', '야 들어봐줘', '야 멈춰봐'],
-  },
+  GIDLE: [
+    {
+      title: '클락션 (Klaxon)',
+      previewUrl: 'https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/56/95/78/569578cc-dc52-a724-54da-c63c8d4faf55/mzaf_6411805859235468367.plus.aac.p.m4a',
+      trackViewUrl: 'https://music.apple.com/kr/album/%ED%81%B4%EB%9D%BD%EC%85%98/1753829503?i=1753829505',
+      lyrics: [
+        '야 나 좀 봐줘 baby',
+        '더 hit the klaxon',
+        'Hon-hon-hon-hon-hon-honk',
+      ],
+      blankLine: 0,
+      blankText: '야 나 좀 봐줘',
+      fullLine: '야 나 좀 봐줘 baby',
+      choices: ['야 나 좀 봐줘', '야 다 비켜봐', '야 들어봐줘', '야 멈춰봐'],
+    },
+  ],
 
   // ── BTS ───────────────────────────────────────────────────────────────────
-  BTS: {
-    title: '소우주 (Mikrokosmos)',
-    previewUrl: 'https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/f4/73/db/f473db8a-b8d9-622b-7828-e40f63af00f7/mzaf_8890385023586453692.plus.aac.p.m4a',
-    trackViewUrl: 'https://music.apple.com/kr/album/%EC%86%8C%EC%9A%B0%EC%A3%BC-mikrokosmos/1599171924?i=1599172213',
-    lyrics: [
-      '반짝이는',
-    ],
-    blankLine: 0,
-    blankText: '반짝이는',
-    fullLine: '반짝이는',
-    choices: ['반짝이는', '빛나는', '떠오르는', '흔들리는'],
-  },
+  BTS: [
+    {
+      title: '소우주 (Mikrokosmos)',
+      previewUrl: 'https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/f4/73/db/f473db8a-b8d9-622b-7828-e40f63af00f7/mzaf_8890385023586453692.plus.aac.p.m4a',
+      trackViewUrl: 'https://music.apple.com/kr/album/%EC%86%8C%EC%9A%B0%EC%A3%BC-mikrokosmos/1599171924?i=1599172213',
+      clipStart: 7,
+      lyrics: [
+        '반짝이는 별빛들',
+        '깜박이는 불켜진 건물',
+      ],
+      blankLine: 0,
+      blankText: '반짝이는 별빛들',
+      fullLine: '반짝이는 별빛들',
+      choices: ['반짝이는 별빛들', '반짝이는 반딧불', '깜박이는 별빛들', '껌벅이는 별빛들'],
+    },
+    {
+      title: '봄날',
+      previewUrl: 'https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview126/v4/18/d7/18/18d718e6-efb8-2241-47b8-44f8951b7afb/mzaf_9900867605041120176.plus.aac.p.m4a',
+      trackViewUrl: 'https://music.apple.com/kr/album/%EB%B4%84%EB%82%A0/1596528839?i=1596529381',
+      clipStart: 17,
+      lyrics: [
+        '보고싶다',
+        '이렇게 말하니까 더 보고 싶다',
+        '너의 사진을 보고 있어도 보고싶다',
+      ],
+      lineDurations: [2, 4, 4],
+      blankLine: 2,
+      blankText: '너의 사진을 보고 있어도',
+      fullLine: '너의 사진을 보고 있어도 보고싶다',
+      choices: ['너의 사진을 보고 있어도', '나의 사진을 보고 있어도', '너는 사진을 보고 있어도', '너의 얼굴을 보고 있어도'],
+    },
+  ],
 
   // ── 아일릿 ────────────────────────────────────────────────────────────────
-  ILLIT: {
-    title: "I'm Not Cute Anymore",
-    previewUrl: 'https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/4e/b0/ee/4eb0eed2-18ab-cd66-fc29-340b9d3713e2/mzaf_6242017905047502425.plus.aac.p.m4a',
-    trackViewUrl: 'https://music.apple.com/kr/album/not-cute-anymore/1849105513?i=1849105517',
-    lyrics: [
-      '강아지 보다 난',
-      '느슨한 해파리가 좋아',
-    ],
-    blankLine: 1,
-    blankText: '느슨한 해파리',
-    fullLine: '느슨한 해파리가 좋아',
-    choices: ['느슨한 해파리', '작은 강아지', '귀여운 고양이', '게으른 나무늘보'],
-  },
+  ILLIT: [
+    {
+      title: "I'm Not Cute Anymore",
+      previewUrl: 'https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/4e/b0/ee/4eb0eed2-18ab-cd66-fc29-340b9d3713e2/mzaf_6242017905047502425.plus.aac.p.m4a',
+      trackViewUrl: 'https://music.apple.com/kr/album/not-cute-anymore/1849105513?i=1849105517',
+      lyrics: [
+        '강아지 보다 난',
+        '느슨한 해파리가 좋아',
+      ],
+      blankLine: 1,
+      blankText: '느슨한 해파리',
+      fullLine: '느슨한 해파리가 좋아',
+      choices: ['느슨한 해파리', '작은 강아지', '귀여운 고양이', '게으른 나무늘보'],
+    },
+  ],
 
   // ── 하츠2하츠 ─────────────────────────────────────────────────────────────
-  H2H: {
-    title: 'RUDE!',
-    previewUrl: 'https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/01/3c/36/013c3684-7121-8f9f-6eb5-00b610ac055c/mzaf_16203782190977593201.plus.aac.p.m4a',
-    trackViewUrl: 'https://music.apple.com/kr/album/rude/1875146814?i=1875146815',
-    lyrics: [
-      '날 향한 시선에 Hate me?',
-      "누가 뭐래도 can't change me",
-      '지금 이대로 좋아',
-    ],
-    blankLine: 2,
-    blankText: '지금 이대로 좋아',
-    fullLine: '지금 이대로 좋아',
-    choices: ['지금 이대로 좋아', '지금 그대로 좋아', '좋아 지금 이대로', '이대로 좋아 지금'],
-  },
+  H2H: [
+    {
+      title: 'RUDE!',
+      previewUrl: 'https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/01/3c/36/013c3684-7121-8f9f-6eb5-00b610ac055c/mzaf_16203782190977593201.plus.aac.p.m4a',
+      trackViewUrl: 'https://music.apple.com/kr/album/rude/1875146814?i=1875146815',
+      lyrics: [
+        '날 향한 시선에 Hate me?',
+        "누가 뭐래도 can't change me",
+        '지금 이대로 좋아',
+      ],
+      blankLine: 2,
+      blankText: '지금 이대로 좋아',
+      fullLine: '지금 이대로 좋아',
+      choices: ['지금 이대로 좋아', '지금 그대로 좋아', '좋아 지금 이대로', '이대로 좋아 지금'],
+    },
+    {
+      title: 'STYLE',
+      previewUrl: 'https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/7d/a5/22/7da52235-4936-089b-cca7-57b39bd57901/mzaf_16582803519496058674.plus.aac.p.m4a',
+      trackViewUrl: 'https://music.apple.com/kr/album/style/1819694545?i=1819694546',
+      clipStart: 10,
+      lyrics: [
+        '흰 도화지위 쓱쓱 그린 green',
+        '갇힐 것 하나 없지',
+        'Get up on this Hey!',
+        '손과 손 사이 미묘해졌지',
+      ],
+      lineDurations: [2.5, 2.5, 2, 3],
+      blankLine: 3,
+      blankText: '미묘해졌지',
+      fullLine: '손과 손 사이 미묘해졌지',
+      choices: ['미묘해졌지', '이모해줬지', '미싱해줬지', '이미해졌지'],
+    },
+  ],
 
   // ── 세븐틴 ────────────────────────────────────────────────────────────────
-  SVT: {
-    title: '음악의 신 (God of Music)',
-    previewUrl: 'https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/cc/cf/f5/cccff5c0-802b-41df-b86d-7ebd703908a0/mzaf_7523547242635277538.plus.aac.p.m4a',
-    trackViewUrl: 'https://music.apple.com/kr/album/%EC%9D%8C%EC%95%85%EC%9D%98-%EC%8B%A0/1711288571?i=1711288969',
-    lyrics: [
-      '이것 또한 나를 위한 소린가',
-      'Kick snare Drum bass Piano Bassline',
-      '무엇이 우리의 행복인가',
-      '뭐 있나 춤을 춰 노래하자',
-      '이것이 우리의 행복이다',
-    ],
-    blankLine: 2,
-    blankText: '무엇이 우리의 행복인가',
-    fullLine: '무엇이 우리의 행복인가',
-    choices: [
-      '무엇이 우리의 행복인가',
-      '이것이 우리의 행복인가',
-      '무엇이 너희의 행복인가',
-      '저것이 우리의 행복인가',
-    ],
-  },
+  SVT: [
+    {
+      title: '음악의 신 (God of Music)',
+      previewUrl: 'https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/cc/cf/f5/cccff5c0-802b-41df-b86d-7ebd703908a0/mzaf_7523547242635277538.plus.aac.p.m4a',
+      trackViewUrl: 'https://music.apple.com/kr/album/%EC%9D%8C%EC%95%85%EC%9D%98-%EC%8B%A0/1711288571?i=1711288969',
+      lyrics: [
+        '이것 또한 나를 위한 소린가',
+        'Kick snare Drum bass Piano Bassline',
+        '무엇이 우리의 행복인가',
+        '뭐 있나 춤을 춰 노래하자',
+        '이것이 우리의 행복이다',
+      ],
+      blankLine: 2,
+      blankText: '무엇이 우리의 행복인가',
+      fullLine: '무엇이 우리의 행복인가',
+      choices: [
+        '무엇이 우리의 행복인가',
+        '이것이 우리의 행복인가',
+        '무엇이 너희의 행복인가',
+        '저것이 우리의 행복인가',
+      ],
+    },
+    {
+      title: '예쁘다',
+      previewUrl: 'https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/a5/2c/6b/a52c6b82-7053-98fa-f3d2-764392015ae2/mzaf_970035000298558973.plus.aac.p.m4a',
+      trackViewUrl: 'https://music.apple.com/kr/album/%EC%98%88%EC%81%98%EB%8B%A4/1130828885?i=1130828903',
+      clipStart: 1,
+      lyrics: [
+        '우리 서로를 선택했고',
+        '나노 단위로 집중해',
+        '널 볼때 가슴이 체할 것 같아',
+      ],
+      blankLine: 2,
+      blankText: '체할 것 같아',
+      fullLine: '널 볼때 가슴이 체할 것 같아',
+      choices: ['체할 것 같아', '토할 것 같아', '욱할 것 같아', '혹할 것 같아'],
+    },
+  ],
 
   // ── 스트레이 키즈 ─────────────────────────────────────────────────────────
-  SKZ: {
-    title: 'CASE 143',
-    previewUrl: 'https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/ec/79/ef/ec79ef3f-acc5-fb98-db5f-a981b390cb56/mzaf_14059686955484905815.plus.aac.p.m4a',
-    trackViewUrl: 'https://music.apple.com/kr/album/case-143/1645273318?i=1645273319',
-    clipDuration: 12,
-    lyrics: [
-      'Why do I keep getting attracted',
-      '자석 같이 끌려가',
-      'I cannot explain this reaction',
-      '이것밖에 143',
-      'Why do I keep getting attracted',
-      '네 모습만 떠올라',
-    ],
-    blankLine: 5,
-    blankText: '네 모습만 떠올라',
-    fullLine: '네 모습만 떠올라',
-    choices: ['네 모습만 떠올라', '네 얼굴만 떠올라', '네 모습만 생각나', '네 모습은 떠났어'],
-  },
+  SKZ: [
+    {
+      title: 'CASE 143',
+      previewUrl: 'https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/ec/79/ef/ec79ef3f-acc5-fb98-db5f-a981b390cb56/mzaf_14059686955484905815.plus.aac.p.m4a',
+      trackViewUrl: 'https://music.apple.com/kr/album/case-143/1645273318?i=1645273319',
+      clipDuration: 12,
+      lyrics: [
+        'Why do I keep getting attracted',
+        '자석 같이 끌려가',
+        'I cannot explain this reaction',
+        '이것밖에 143',
+        'Why do I keep getting attracted',
+        '네 모습만 떠올라',
+      ],
+      blankLine: 5,
+      blankText: '네 모습만 떠올라',
+      fullLine: '네 모습만 떠올라',
+      choices: ['네 모습만 떠올라', '네 얼굴만 떠올라', '네 모습만 생각나', '네 모습은 떠났어'],
+    },
+  ],
 
   // ── 르세라핌 ──────────────────────────────────────────────────────────────
-  LESSERAFIM: {
-    title: 'SPAGHETTI',
-    previewUrl: 'https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/c9/bd/2c/c9bd2ccd-1a28-34d2-b1ae-14da2404f8b3/mzaf_17126970940455785926.plus.aac.p.m4a',
-    trackViewUrl: 'https://music.apple.com/kr/album/spaghetti/1846119152?i=1846119582',
-    clipDuration: 12,
-    lyrics: [
-      'Eat it up eat it eat it up',
-      '머릿속 낀 SSERAFIM',
-      'Bad bitch in between your teeth',
-      '그냥 포기해 어차피',
-      'Eat it up eat it eat it up',
-    ],
-    blankLine: 3,
-    blankText: '그냥 포기해 어차피',
-    fullLine: '그냥 포기해 어차피',
-    choices: ['그냥 포기해 어차피', '이제 손 들어 이미', '다 내려놔 결국', '잊어버려 어차피'],
-  },
+  LESSERAFIM: [
+    {
+      title: 'SPAGHETTI',
+      previewUrl: 'https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/c9/bd/2c/c9bd2ccd-1a28-34d2-b1ae-14da2404f8b3/mzaf_17126970940455785926.plus.aac.p.m4a',
+      trackViewUrl: 'https://music.apple.com/kr/album/spaghetti/1846119152?i=1846119582',
+      clipDuration: 12,
+      lyrics: [
+        'Eat it up eat it eat it up',
+        '머릿속 낀 SSERAFIM',
+        'Bad bitch in between your teeth',
+        '그냥 포기해 어차피',
+        'Eat it up eat it eat it up',
+      ],
+      blankLine: 3,
+      blankText: '그냥 포기해 어차피',
+      fullLine: '그냥 포기해 어차피',
+      choices: ['그냥 포기해 어차피', '이제 손 들어 이미', '다 내려놔 결국', '잊어버려 어차피'],
+    },
+  ],
 
   // ── NMIXX ─────────────────────────────────────────────────────────────────
-  NMIXX: {
-    title: 'Heavy Serenade',
-    previewUrl: 'https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/65/c6/d5/65c6d5d6-d7dd-1f17-fdc7-95bd19ae5dd6/mzaf_7764163084838025682.plus.aac.p.m4a',
-    trackViewUrl: 'https://music.apple.com/kr/album/heavy-serenade/1892954835?i=1892954841',
-    lyrics: [
-      '커진 심장 소릴 들어봐',
-      '영원히 기억될 이 순간',
-      '가사가 된 꽃잎들을 봐',
-    ],
-    blankLine: 2,
-    blankText: '꽃잎들을 봐',
-    fullLine: '가사가 된 꽃잎들을 봐',
-    choices: ['꽃잎들을 봐', '꽃향기를 봐', '별빛들을 봐', '추억들을 봐'],
-  },
+  NMIXX: [
+    {
+      title: 'Heavy Serenade',
+      previewUrl: 'https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/65/c6/d5/65c6d5d6-d7dd-1f17-fdc7-95bd19ae5dd6/mzaf_7764163084838025682.plus.aac.p.m4a',
+      trackViewUrl: 'https://music.apple.com/kr/album/heavy-serenade/1892954835?i=1892954841',
+      lyrics: [
+        '커진 심장 소릴 들어봐',
+        '영원히 기억될 이 순간',
+        '가사가 된 꽃잎들을 봐',
+      ],
+      blankLine: 2,
+      blankText: '꽃잎들을 봐',
+      fullLine: '가사가 된 꽃잎들을 봐',
+      choices: ['꽃잎들을 봐', '꽃향기를 봐', '별빛들을 봐', '추억들을 봐'],
+    },
+  ],
 
   // ── RESCENE ───────────────────────────────────────────────────────────────
-  RESCENE: {
-    title: 'LOVE ATTACK',
-    previewUrl: 'https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/6a/c5/ec/6ac5ecf5-6e26-e551-0b1d-d9f2fcb253a2/mzaf_18228858557779313654.plus.aac.p.m4a',
-    trackViewUrl: 'https://music.apple.com/kr/album/love-attack/1764485168?i=1764485170',
-    lyrics: [
-      '한 번도 빛난 적 없었던',
-      '미지의 향으로',
-      '온 세상을 물들여',
-    ],
-    blankLine: 2,
-    blankText: '온 세상을 물들여',
-    fullLine: '온 세상을 물들여',
-    choices: ['온 세상을 물들여', '온 세상을 뒤덮어', '온 세계를 물들여', '이 세계를 물들여'],
-  },
+  RESCENE: [
+    {
+      title: 'LOVE ATTACK',
+      previewUrl: 'https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/6a/c5/ec/6ac5ecf5-6e26-e551-0b1d-d9f2fcb253a2/mzaf_18228858557779313654.plus.aac.p.m4a',
+      trackViewUrl: 'https://music.apple.com/kr/album/love-attack/1764485168?i=1764485170',
+      lyrics: [
+        '한 번도 빛난 적 없었던',
+        '미지의 향으로',
+        '온 세상을 물들여',
+      ],
+      blankLine: 2,
+      blankText: '온 세상을 물들여',
+      fullLine: '온 세상을 물들여',
+      choices: ['온 세상을 물들여', '온 세상을 뒤덮어', '온 세계를 물들여', '이 세계를 물들여'],
+    },
+  ],
 };
 
 // ─── Translations ────────────────────────────────────────────────────────────
@@ -676,6 +781,7 @@ function ListeningScreen({ artist, trackInfo, songData, noPreview, onQuiz, onBac
   const [isPlaying, setIsPlaying]         = useState(false);
   const [currentTime, setCurrentTime]     = useState(0);
   const [audioLoadError, setAudioLoadError] = useState(false);
+  const CLIP_START    = songData.clipStart ?? 0;
   const CLIP_DURATION = songData.clipDuration ?? 10;
 
   // Auto-play when preview is ready (PC only — mobile blocks autoplay)
@@ -689,21 +795,26 @@ function ListeningScreen({ artist, trackInfo, songData, noPreview, onQuiz, onBac
     return () => clearTimeout(t);
   }, [trackInfo?.previewUrl]);
 
-  // Progress + auto-pause at CLIP_DURATION + error for mobile
+  // loadedmetadata 시 clipStart 위치로 이동 + progress/auto-pause/error
   useEffect(() => {
     const audio = audioRef.current;
     if (!audio) return;
+    const onLoadedMetadata = () => {
+      if (CLIP_START > 0) audio.currentTime = CLIP_START;
+    };
     const onTimeUpdate = () => {
       const t = audio.currentTime;
-      setCurrentTime(t);
-      if (t >= CLIP_DURATION) { audio.pause(); setIsPlaying(false); }
+      setCurrentTime(t - CLIP_START);
+      if (t >= CLIP_START + CLIP_DURATION) { audio.pause(); setIsPlaying(false); }
     };
     const onEnded = () => setIsPlaying(false);
     const onAudioError = () => setAudioLoadError(true);
+    audio.addEventListener('loadedmetadata', onLoadedMetadata);
     audio.addEventListener('timeupdate', onTimeUpdate);
     audio.addEventListener('ended', onEnded);
     audio.addEventListener('error', onAudioError);
     return () => {
+      audio.removeEventListener('loadedmetadata', onLoadedMetadata);
       audio.removeEventListener('timeupdate', onTimeUpdate);
       audio.removeEventListener('ended', onEnded);
       audio.removeEventListener('error', onAudioError);
@@ -715,7 +826,10 @@ function ListeningScreen({ artist, trackInfo, songData, noPreview, onQuiz, onBac
     if (!audio) return;
     if (isPlaying) { audio.pause(); setIsPlaying(false); }
     else {
-      if (audio.currentTime >= CLIP_DURATION) { audio.currentTime = 0; setCurrentTime(0); }
+      if (audio.currentTime - CLIP_START >= CLIP_DURATION) {
+        audio.currentTime = CLIP_START;
+        setCurrentTime(0);
+      }
       audio.play().then(() => setIsPlaying(true)).catch(() => setAudioLoadError(true));
     }
   };
@@ -723,7 +837,7 @@ function ListeningScreen({ artist, trackInfo, songData, noPreview, onQuiz, onBac
   const handleReplay = () => {
     const audio = audioRef.current;
     if (!audio) return;
-    audio.currentTime = 0;
+    audio.currentTime = CLIP_START;
     setCurrentTime(0);
     audio.play().then(() => setIsPlaying(true)).catch(() => setAudioLoadError(true));
   };
@@ -946,7 +1060,8 @@ export default function App() {
   const [quizResult, setQuizResult]           = useState(null);
 
   const handleSelectArtist = (artist) => {
-    const songData = SONGS[artist.id];
+    const songs = SONGS[artist.id];
+    const songData = songs[Math.floor(Math.random() * songs.length)];
     setSelectedArtist(artist);
     setCurrentSongData(songData);
     setNoPreview(!songData.previewUrl);
