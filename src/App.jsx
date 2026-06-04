@@ -12,6 +12,8 @@ const ARTISTS = [
   { id: 'SVT',        ko: '세븐틴',       en: 'SEVENTEEN',      color: '#60a5fa', img: 'https://is1-ssl.mzstatic.com/image/thumb/Music116/v4/e3/76/df/e376df28-c05b-00fd-72de-9d42377a306b/196922628580_Cover.jpg/400x400bb.jpg' },
   { id: 'SKZ',        ko: '스트레이 키즈', en: 'Stray Kids',    color: '#fbbf24', img: 'https://is1-ssl.mzstatic.com/image/thumb/Music112/v4/0e/12/79/0e1279ed-d25b-400c-b426-730da021f804/SKZ-MAXIDENT-OnlineCover_Final.jpg/400x400bb.jpg' },
   { id: 'LESSERAFIM', ko: '르세라핌',     en: 'LE SSERAFIM',    color: '#f97316', img: 'https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/0c/3b/01/0c3b0191-6170-765d-23a6-1b1c9c25cb77/198704776991_Cover.jpg/400x400bb.jpg' },
+  { id: 'NMIXX',      ko: 'NMIXX',        en: 'NMIXX',          color: '#e879f9', img: 'https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/fe/cd/64/fecd6408-3ace-12b5-7ad7-c5d2ac891168/8809928958262.jpg/400x400bb.jpg' },
+  { id: 'RESCENE',    ko: '리센느',       en: 'RESCENE',        color: '#2dd4bf', img: 'https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/43/0b/4c/430b4c8e-3cb8-da27-648f-435ec3b391a6/8804775334160.jpg/400x400bb.jpg' },
 ];
 
 // ─── Songs ────────────────────────────────────────────────────────────────────
@@ -133,7 +135,7 @@ const SONGS = {
     blankLine: 2,
     blankText: '지금 이대로 좋아',
     fullLine: '지금 이대로 좋아',
-    choices: ['지금 이대로 좋아', '난 변하지 않아', '나답게 살아', '누구도 못 막아'],
+    choices: ['지금 이대로 좋아', '지금 그대로 좋아', '좋아 지금 이대로', '이대로 좋아 지금'],
   },
 
   // ── 세븐틴 ────────────────────────────────────────────────────────────────
@@ -153,9 +155,9 @@ const SONGS = {
     fullLine: '무엇이 우리의 행복인가',
     choices: [
       '무엇이 우리의 행복인가',
-      '어디서 우리가 만났는가',
-      '언제쯤 끝이 나는가',
-      '왜 이리도 설레는가',
+      '이것이 우리의 행복인가',
+      '무엇이 너희의 행복인가',
+      '저것이 우리의 행복인가',
     ],
   },
 
@@ -176,7 +178,7 @@ const SONGS = {
     blankLine: 5,
     blankText: '네 모습만 떠올라',
     fullLine: '네 모습만 떠올라',
-    choices: ['네 모습만 떠올라', '너만 생각나', '네 얼굴이 보여', '너뿐이야'],
+    choices: ['네 모습만 떠올라', '네 얼굴만 떠올라', '네 모습만 생각나', '네 모습은 떠났어'],
   },
 
   // ── 르세라핌 ──────────────────────────────────────────────────────────────
@@ -196,6 +198,38 @@ const SONGS = {
     blankText: '그냥 포기해 어차피',
     fullLine: '그냥 포기해 어차피',
     choices: ['그냥 포기해 어차피', '이제 손 들어 이미', '다 내려놔 결국', '잊어버려 어차피'],
+  },
+
+  // ── NMIXX ─────────────────────────────────────────────────────────────────
+  NMIXX: {
+    title: 'Heavy Serenade',
+    previewUrl: 'https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/65/c6/d5/65c6d5d6-d7dd-1f17-fdc7-95bd19ae5dd6/mzaf_7764163084838025682.plus.aac.p.m4a',
+    trackViewUrl: 'https://music.apple.com/kr/album/heavy-serenade/1892954835?i=1892954841',
+    lyrics: [
+      '커진 심장 소릴 들어봐',
+      '영원히 기억될 이 순간',
+      '가사가 된 꽃잎들을 봐',
+    ],
+    blankLine: 2,
+    blankText: '꽃잎들을 봐',
+    fullLine: '가사가 된 꽃잎들을 봐',
+    choices: ['꽃잎들을 봐', '꽃향기를 봐', '별빛들을 봐', '추억들을 봐'],
+  },
+
+  // ── RESCENE ───────────────────────────────────────────────────────────────
+  RESCENE: {
+    title: 'LOVE ATTACK',
+    previewUrl: 'https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/6a/c5/ec/6ac5ecf5-6e26-e551-0b1d-d9f2fcb253a2/mzaf_18228858557779313654.plus.aac.p.m4a',
+    trackViewUrl: 'https://music.apple.com/kr/album/love-attack/1764485168?i=1764485170',
+    lyrics: [
+      '한 번도 빛난 적 없었던',
+      '미지의 향으로',
+      '온 세상을 물들여',
+    ],
+    blankLine: 2,
+    blankText: '온 세상을 물들여',
+    fullLine: '온 세상을 물들여',
+    choices: ['온 세상을 물들여', '온 세상을 뒤덮어', '온 세계를 물들여', '이 세계를 물들여'],
   },
 };
 
