@@ -24,3 +24,10 @@ dist-ssr
 *.sw?
 
 .vercel
+
+# Environment variables (API keys)
+.env
+.env.local
+.env*.local
+
+.vercel

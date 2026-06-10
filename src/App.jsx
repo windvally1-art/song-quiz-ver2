@@ -1034,9 +1034,16 @@ function ListeningScreen({ artist, trackInfo, songData, noPreview, onQuiz, onBac
 }
 
 // ─── Screen 3: Quiz ───────────────────────────────────────────────────────────
-function QuizScreen({ artist, songData, onAnswer, t }) {
+function QuizScreen({ artist, songData, aiChoices, aiLoading, onAnswer, t }) {
   const [selected, setSelected] = useState(null);
-  const shuffledChoices = useRef(shuffle(songData.choices)).current;
+
+  // aiChoices 가 도착하기 전까지는 fallback(기존 choices) 사용
+  const activeChoices = aiChoices ?? songData.choices;
+  const shuffledChoices = useRef(null);
+  // aiChoices 가 바뀔 때(처음 로드 완료 시)에만 재셔플, selected 없을 때만
+  if (shuffledChoices.current === null || (aiChoices && !selected)) {
+    shuffledChoices.current = shuffle(activeChoices);
+  }
 
   const handleSelect = (choice) => {
     if (selected) return;
@@ -1066,20 +1073,34 @@ function QuizScreen({ artist, songData, onAnswer, t }) {
         {t('quizInstruction')}
       </p>
       <div className="quiz-lyric">{renderQuizLine()}</div>
-      <div className="choices">
-        {shuffledChoices.map((choice) => {
-          let cls = 'choice-btn';
-          if (selected) {
-            if (choice === songData.blankText) cls += ' correct';
-            else if (choice === selected)      cls += ' wrong';
-          }
-          return (
-            <button key={choice} className={cls} onClick={() => handleSelect(choice)}>
-              {choice}
-            </button>
-          );
-        })}
-      </div>
+
+      {aiLoading && !aiChoices ? (
+        <div style={{ textAlign: 'center', padding: '20px 0' }}>
+          <div className="spinner" />
+          <p style={{ color: '#a0a0c0', fontSize: 13, marginTop: 4 }}>AI 오답 생성 중…</p>
+        </div>
+      ) : (
+        <div className="choices">
+          {shuffledChoices.current.map((choice) => {
+            let cls = 'choice-btn';
+            if (selected) {
+              if (choice === songData.blankText) cls += ' correct';
+              else if (choice === selected)      cls += ' wrong';
+            }
+            return (
+              <button key={choice} className={cls} onClick={() => handleSelect(choice)}>
+                {choice}
+              </button>
+            );
+          })}
+        </div>
+      )}
+
+      {aiChoices && (
+        <p style={{ textAlign: 'center', color: '#555577', fontSize: 11, marginTop: 12 }}>
+          ✨ AI 생성 오답
+        </p>
+      )}
     </div>
   );
 }
@@ -1140,6 +1161,37 @@ export default function App() {
   const [trackInfo, setTrackInfo]             = useState(null);
   const [noPreview, setNoPreview]             = useState(false);
   const [quizResult, setQuizResult]           = useState(null);
+  const [aiChoices, setAiChoices]             = useState(null);
+  const [aiLoading, setAiLoading]             = useState(false);
+
+  const fetchAiChoices = async (songData, artist) => {
+    setAiChoices(null);
+    setAiLoading(true);
+    try {
+      const res = await fetch('/api/generate-choices', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          title:      songData.title,
+          artistName: artist.ko,
+          lyrics:     songData.lyrics,
+          blankText:  songData.blankText,
+          fullLine:   songData.fullLine,
+        }),
+      });
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      const data = await res.json();
+      if (Array.isArray(data.choices) && data.choices.length === 3) {
+        // 정답 + AI 오답 3개 = 4지선다
+        setAiChoices([songData.blankText, ...data.choices]);
+      }
+    } catch (err) {
+      console.warn('[AI choices] fallback to static:', err.message);
+      // 실패 시 기존 choices 그대로 사용 (aiChoices = null → fallback)
+    } finally {
+      setAiLoading(false);
+    }
+  };
 
   const handleSelectArtist = (artist) => {
     const songs = SONGS[artist.id];
@@ -1149,6 +1201,8 @@ export default function App() {
     setNoPreview(!songData.previewUrl);
     setTrackInfo({ previewUrl: songData.previewUrl ?? null, trackViewUrl: songData.trackViewUrl ?? null });
     setScreen('listen');
+    // 백그라운드에서 AI 오답 생성 시작
+    fetchAiChoices(songData, artist);
   };
 
   return (
@@ -1184,6 +1238,8 @@ export default function App() {
           <QuizScreen
             artist={selectedArtist}
             songData={currentSongData}
+            aiChoices={aiChoices}
+            aiLoading={aiLoading}
             onAnswer={(correct) => { setQuizResult(correct); setScreen('result'); }}
             t={t}
           />
