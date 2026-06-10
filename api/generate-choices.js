@@ -43,8 +43,8 @@ JSON 형식으로만 응답하세요 (다른 텍스트 없이):
 
   try {
     const message = await client.messages.create({
-      model: 'claude-sonnet-4-6',
-      max_tokens: 200,
+      model: 'claude-haiku-4-5',
+      max_tokens: 150,
       messages: [{ role: 'user', content: prompt }],
     });
 
